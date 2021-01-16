@@ -1,4 +1,5 @@
 class GroupsController < ApplicationController
+
   def index
     @groups = Group.all
   end
@@ -18,9 +19,12 @@ class GroupsController < ApplicationController
 
    def create
      @group = Group.new(group_params)
-     @group.save
 
+     if @group.save
        redirect_to groups_path
+     else
+       render :new
+     end 
    end
 
    def update
@@ -36,7 +40,7 @@ class GroupsController < ApplicationController
      @group.destroy
      flash[:alert] = "Group deleted"
      redirect_to groups_path
-   end 
+   end
 
    private
 
